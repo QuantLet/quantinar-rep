@@ -1,13 +1,16 @@
-import logging
 import json
+import os
+import logging
+
 from quantinar_rep.constants import COURSE_BASE, COURSELET_BASE, ORDER_BASE,\
     PAGE_BASE, REVIEW_BASE, USER_BASE
 
 DATA_DIR_PATH = "./quantinar_rep/data_20221227"
-EDGES_HISTORY_PATH = f"{DATA_DIR_PATH}/all_edges.csv"
-PV_HISTORY_PATH = f"{DATA_DIR_PATH}/pv_edges.csv"
-NODE_TYPE_MAPPER = json.load(open(
-    f"{DATA_DIR_PATH}/node_type_mapper.json", "r"))
+EDGES_HISTORY_PATH = os.path.join(DATA_DIR_PATH, "all_edges.csv")
+PV_HISTORY_PATH = os.path.join(DATA_DIR_PATH, "pv_edges.csv")
+NODE_TYPE_MAPPER = json.load(open(os.path.join(DATA_DIR_PATH,
+                                               "node_type_mapper.json"),
+                                  "r"))
 
 LOGGER_LEVEL = "debug"
 # https://github.com/sourcecred/sourcecred/blob/74fda4e1050a836a4a877c6a5fa7ceb18d4934c1/packages/sourcecred/src/core/credrank/compute.js
