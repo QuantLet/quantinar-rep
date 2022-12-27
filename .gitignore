@@ -166,7 +166,7 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
-/quantinar_rep/data_20221224_to_delete/
-/quantinar_rep/data_20221227/
-/quantinar_rep/data_20221227 copy/
+**data_20221224_to_delete/
+**data_20221227/
+**data_20221227 copy/
 /scripts/results/
