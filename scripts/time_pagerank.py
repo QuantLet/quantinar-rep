@@ -91,11 +91,11 @@ if __name__ == "__main__":
     if args.node_label_mapper is not None:
         NODE_LABEL_MAPPER = json.load(open(args.node_label_mapper, "r"))
 
-    if not os.path.isdir("./scripts/results/"):
-        os.makedirs("./scripts/results/")
+    if not os.path.isdir("./results/"):
+        os.makedirs("./results/")
 
     save_dir = f"{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}_pagerank"
-    save_dir = f"./scripts/results/{save_dir}"
+    save_dir = f"./results/{save_dir}"
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir, exist_ok=False)
 
