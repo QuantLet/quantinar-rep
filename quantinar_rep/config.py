@@ -3,7 +3,57 @@ import json
 from quantinar_rep.constants import COURSE_BASE, COURSELET_BASE, ORDER_BASE,\
     PAGE_BASE, REVIEW_BASE, USER_BASE
 
+DATA_DIR_PATH = "./quantinar_rep/data_20221227"
+EDGES_HISTORY_PATH = f"{DATA_DIR_PATH}/all_edges.csv"
+PV_HISTORY_PATH = f"{DATA_DIR_PATH}/pv_edges.csv"
+NODE_TYPE_MAPPER = json.load(open(
+    f"{DATA_DIR_PATH}/node_type_mapper.json", "r"))
+
 LOGGER_LEVEL = "debug"
+# https://github.com/sourcecred/sourcecred/blob/74fda4e1050a836a4a877c6a5fa7ceb18d4934c1/packages/sourcecred/src/core/credrank/compute.js
+DEFAULT_ALPHA = 0.1
+DEFAULT_BETA = 0.4
+DEFAULT_GAMMA_FORWARD = 0.1
+DEFAULT_GAMMA_BACKWARD = 0.1
+
+FREQ_DAYS = 7
+NODE_WEIGHTS = {
+    PAGE_BASE: 0,
+    COURSE_BASE: 0,
+    COURSELET_BASE: 8,
+    USER_BASE: 0,
+    REVIEW_BASE: 1,
+    ORDER_BASE: 1
+}
+
+MINTING_CONTRI_LABEL = [k for k in NODE_WEIGHTS if NODE_WEIGHTS[k] != 0]
+DEFAULT_WEIGHTS = {
+    "pv_course": 1e-5,
+
+    "course_user": 1.,
+    "user_course": 1 / 8,
+
+    "courselet_user": 1.,
+    "user_courselet": 1 / 8,
+
+    "course_courselet": 1.,
+    "courselet_course": 1 / 8,
+
+    "order_course": 5.,
+    "course_order": 1 / 16,  # 1 / 16,
+
+    "order_user": 1.,
+    "user_order": 1 / 16,  # 1 / 16,
+
+    "review_user": 1.,
+    "user_review": 1 / 8,  # 1e-5,
+
+    "review_course": 2.,
+    "course_review": 1 / 16,  # 1e-5,
+}
+PERSONALIZATION_METHOD = "seed"
+
+VALID_WEIGHT_KEYS = list(DEFAULT_WEIGHTS.keys())
 
 
 class CustomFormatter(logging.Formatter):
@@ -52,54 +102,3 @@ def get_logger(name_logger, level="debug"):
 
 
 LOGGER = get_logger("quantinar_rep-Logger", level=LOGGER_LEVEL)
-
-# https://github.com/sourcecred/sourcecred/blob/74fda4e1050a836a4a877c6a5fa7ceb18d4934c1/packages/sourcecred/src/core/credrank/compute.js
-DEFAULT_ALPHA = 0.1
-DEFAULT_BETA = 0.4
-DEFAULT_GAMMA_FORWARD = 0.1
-DEFAULT_GAMMA_BACKWARD = 0.1
-
-FREQ_DAYS = 7
-NODE_WEIGHTS = {
-    PAGE_BASE: 0,
-    COURSE_BASE: 0,
-    COURSELET_BASE: 8,
-    USER_BASE: 0,
-    REVIEW_BASE: 1,
-    ORDER_BASE: 1
-}
-
-MINTING_CONTRI_LABEL = [k for k in NODE_WEIGHTS if NODE_WEIGHTS[k] != 0]
-DEFAULT_WEIGHTS = {
-    "pv_course": 1e-5,
-
-    "course_user": 1.,
-    "user_course": 1 / 8,
-
-    "courselet_user": 1.,
-    "user_courselet": 1 / 8,
-
-    "course_courselet": 1.,
-    "courselet_course": 1 / 8,
-
-    "order_course": 5.,
-    "course_order": 1 / 16,  # 1 / 16,
-
-    "order_user": 1.,
-    "user_order": 1 / 16,  # 1 / 16,
-
-    "review_user": 1.,
-    "user_review": 1 / 8,  # 1e-5,
-
-    "review_course": 2.,
-    "course_review": 1 / 16,  # 1e-5,
-}
-PERSONALIZATION_METHOD = "seed"
-
-VALID_WEIGHT_KEYS = list(DEFAULT_WEIGHTS.keys())
-
-DATA_DIR_PATH = "./quantinar_rep/data_20221227"
-EDGES_HISTORY_PATH = f"./{DATA_DIR_PATH}/all_edges.csv"
-PV_HISTORY_PATH = f"./{DATA_DIR_PATH}/pv_edges.csv"
-NODE_TYPE_MAPPER = json.load(open(
-    f"{DATA_DIR_PATH}/node_type_mapper.json", "r"))
