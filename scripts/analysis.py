@@ -28,11 +28,6 @@ if __name__ == "__main__":
         help="Decay factor for credrank computation",
     )
     parser.add_argument(
-        "--anonymize",
-        action="store_true",
-        help="Anonymize legends in plots",
-    )
-    parser.add_argument(
         "--show",
         action="store_true",
         help="Show plots",
