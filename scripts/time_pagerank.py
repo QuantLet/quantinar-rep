@@ -166,8 +166,7 @@ if __name__ == "__main__":
         if pv_edges_history is not None:
             # Add pageviews edges
             period_pv_edges = pv_edges_history[
-                (pv_edges_history["timestamp"] >= start) & (
-                        pv_edges_history["timestamp"] <= end)].copy()
+                pv_edges_history["timestamp"] <= end].copy()
             period_pv_edges["norm_weight"] = period_pv_edges["weight"]
             graph_edges = pd.concat([graph_edges, period_pv_edges])
         graph_edges.drop(["proba", "weight"], axis=1, inplace=True)
