@@ -73,6 +73,7 @@ def plot_graph_pr_scale(graph, pagerank, scale=100000,
                                                   nodelist},
             font_size=15,
             with_labels=not (labels is None))
+    plt.box(False)
     if save_path:
         plt.savefig(save_path, transparent=True, bbox_inches="tight")
     if show:
